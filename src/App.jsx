@@ -16,7 +16,9 @@ import Projects from "./components/Projects";
 import Experience from "./components/Experience";
 import Certifications from "./components/Certifications";
 import Interests from "./components/Interests";
+import SysOpsDashboard from "./components/SysOpsDashboard";
 import Contact from "./components/Contact";
+
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -91,6 +93,7 @@ export default function App() {
               <Experience />
               <Certifications />
               <Interests />
+              <SysOpsDashboard />
               <Contact />
             </main>
 

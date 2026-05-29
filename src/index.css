@@ -134,3 +134,131 @@ html.lenis, html.lenis body {
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
 }
+
+/* ==========================================================================
+   STARGATE PATHFINDER GRID SYSTEM STYLES
+   ========================================================================== */
+
+.node-base {
+  width: 100%;
+  height: 100%;
+  border: 1.5px solid rgba(165, 148, 249, 0.12);
+  background-color: rgba(255, 255, 255, 0.22);
+  border-radius: 4px;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  box-shadow: inset 0 0 3px rgba(205, 193, 255, 0.05);
+}
+
+.node-base:hover {
+  background-color: rgba(165, 148, 249, 0.2);
+  border-color: rgba(165, 148, 249, 0.45);
+  transform: scale(1.08);
+  z-index: 10;
+  box-shadow: 0 0 8px rgba(165, 148, 249, 0.25);
+}
+
+.node-wall {
+  background: linear-gradient(135deg, #1C1635 0%, #2e2454 100%);
+  border-color: rgba(165, 148, 249, 0.6);
+  animation: wallAnimation 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  box-shadow: 0 0 10px rgba(28, 22, 53, 0.4), inset 0 0 5px rgba(165, 148, 249, 0.2);
+}
+
+.node-start {
+  background: radial-gradient(circle, #34d399 20%, #10b981 70%);
+  border-color: #059669;
+  box-shadow: 0 0 12px #10b981, inset 0 0 5px #064e3b;
+  animation: portalPulse 2s infinite alternate;
+  cursor: grab !important;
+}
+
+.node-start:active {
+  cursor: grabbing !important;
+}
+
+.node-end {
+  background: radial-gradient(circle, #f87171 20%, #ef4444 70%);
+  border-color: #dc2626;
+  box-shadow: 0 0 12px #ef4444, inset 0 0 5px #7f1d1d;
+  animation: portalPulse 2.2s infinite alternate-reverse;
+  cursor: grab !important;
+}
+
+.node-end:active {
+  cursor: grabbing !important;
+}
+
+.node-visited {
+  animation: visitedAnimation 1.6s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+.node-shortest-path {
+  animation: shortestPathAnimation 0.75s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  z-index: 5;
+}
+
+/* Custom Grid Animations */
+@keyframes wallAnimation {
+  0% {
+    transform: scale(0.3);
+    border-radius: 50%;
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.0);
+    border-radius: 4px;
+    opacity: 1;
+  }
+}
+
+@keyframes portalPulse {
+  0% {
+    transform: scale(1.0);
+    box-shadow: 0 0 8px currentColor;
+  }
+  100% {
+    transform: scale(1.1);
+    box-shadow: 0 0 16px currentColor, 0 0 4px white;
+  }
+}
+
+@keyframes visitedAnimation {
+  0% {
+    transform: scale(0.3);
+    background-color: rgba(229, 217, 242, 0.75);
+    border-radius: 100%;
+  }
+  50% {
+    background-color: rgba(205, 193, 255, 0.75);
+  }
+  75% {
+    transform: scale(1.15);
+    background-color: rgba(165, 148, 249, 0.55);
+    box-shadow: 0 0 10px rgba(165, 148, 249, 0.4);
+  }
+  100% {
+    transform: scale(1.0);
+    background-color: rgba(205, 193, 255, 0.28);
+    border-color: rgba(165, 148, 249, 0.35);
+    box-shadow: inset 0 0 4px rgba(205, 193, 255, 0.1);
+  }
+}
+
+@keyframes shortestPathAnimation {
+  0% {
+    transform: scale(0.6);
+    background-color: #E5D9F2;
+  }
+  50% {
+    transform: scale(1.15);
+    background-color: #CDC1FF;
+    box-shadow: 0 0 15px #A594F9;
+  }
+  100% {
+    transform: scale(1.0);
+    background: linear-gradient(135deg, #A594F9 0%, #CDC1FF 100%);
+    box-shadow: 0 0 15px rgba(165, 148, 249, 0.75), inset 0 0 4px rgba(255, 255, 255, 0.5);
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+}
+
