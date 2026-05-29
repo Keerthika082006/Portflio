@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-display: "Syne", "Inter", sans-serif;
+  --font-cyber: "Orbitron", monospace;
+
+  --color-lavender-bg: #F5EFFF;
+  --color-lavender-light: #E5D9F2;
+  --color-lavender-medium: #CDC1FF;
+  --color-lavender-vibrant: #A594F9;
+  --color-deep-text: #1C1635;
+  --color-deep-surface: #ffffff;
+
+  --animate-glow-pulse: glow-pulse 3s infinite alternate;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-spin-slow: spin 20s linear infinite;
+
+  @keyframes glow-pulse {
+    0% {
+      box-shadow: 0 0 10px rgba(165, 148, 249, 0.15), 0 0 20px rgba(205, 193, 255, 0.1);
+    }
+    100% {
+      box-shadow: 0 0 25px rgba(165, 148, 249, 0.45), 0 0 40px rgba(229, 217, 242, 0.2);
+    }
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-12px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+}
+
+/* Custom base styles */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    background-color: #F5EFFF;
+    color: #1C1635;
+  }
+
+  /* Premium minimalist custom scrollbar in soft lavender */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #F5EFFF;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #CDC1FF;
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #A594F9;
+  }
+}
+
+/* Advanced interactive utilities */
+@utility glass {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(165, 148, 249, 0.22);
+}
+
+@utility glass-hover {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  &:hover {
+    background: rgba(255, 255, 255, 0.8);
+    border-color: rgba(165, 148, 249, 0.5);
+    box-shadow: 0 10px 30px rgba(165, 148, 249, 0.18);
+  }
+}
+
+@utility neon-text-vibrant {
+  text-shadow: 0 0 8px rgba(165, 148, 249, 0.5), 0 0 15px rgba(165, 148, 249, 0.2);
+}
+
+@utility neon-border-light {
+  box-shadow: inset 0 0 12px rgba(229, 217, 242, 0.4), 0 0 12px rgba(229, 217, 242, 0.2);
+}
+
+@utility neon-border-vibrant {
+  box-shadow: inset 0 0 15px rgba(165, 148, 249, 0.15), 0 0 15px rgba(165, 148, 249, 0.2);
+}
+
+@utility bg-mesh-gradient {
+  background: radial-gradient(circle at 10% 20%, rgba(229, 217, 242, 0.45) 0%, transparent 45%),
+              radial-gradient(circle at 90% 80%, rgba(205, 193, 255, 0.4) 0%, transparent 45%),
+              radial-gradient(circle at 50% 50%, rgba(245, 239, 255, 1) 0%, #F5EFFF 100%);
+}
+
+/* Hide default cursor on desktops */
+@media (min-width: 1024px) {
+  body {
+    cursor: none;
+  }
+  a, button, select, input, textarea, [role="button"] {
+    cursor: none;
+  }
+}
+
+/* Lenis CSS integration */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
