@@ -101,7 +101,7 @@ export default function App() {
             <footer className="w-full py-10 px-6 border-t border-lavender-medium/20 bg-lavender-bg/85 backdrop-blur text-center select-none z-10">
               <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
                 <span className="font-cyber text-[9px] tracking-[0.25em] text-deep-text/60 uppercase font-bold">
-                  © 2026 KEE.SYS v4.0. ALL RIGHTS RESERVED. SECURE TRANSMISSION.
+                  © 2026 KEERTHIKA. ALL RIGHTS RESERVED. SECURE TRANSMISSION.
                 </span>
                 
                 <span className="font-cyber text-[8px] tracking-widest text-lavender-vibrant font-black uppercase flex items-center space-x-1.5 animate-pulse">

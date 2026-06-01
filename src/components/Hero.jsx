@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ArrowRight, Mail, Download } from "lucide-react";
+import { Eye } from "lucide-react";
 import { motion } from "framer-motion";
 import developerPhoto from "../assets/developer_photo.png";
 
@@ -19,18 +19,23 @@ const LinkedinIcon = (props) => (
   </svg>
 );
 
+const LeetcodeIcon = (props) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M12 2c5.522 0 10 4.477 10 10s-4.478 10-10 10S2 17.523 2 12 6.478 2 12 2Z" />
+    <path d="m14.5 13.5-3-3m0 0a1.5 1.5 0 1 0-2.12 2.12l4.24 4.24a1.5 1.5 0 0 0 2.12 0l4.24-4.24a1.5 1.5 0 0 0-2.12-2.12l-3.36 3.36" />
+  </svg>
+);
+
 const TYPING_STRINGS = [
-  "Java Developer",
-  "Frontend Enthusiast",
-  "Problem Solver",
   "Tech Explorer",
+  "Software Developer",
+  "Problem Solver",
 ];
 
 export default function Hero() {
   const [typedText, setTypedText] = useState("");
   const [stringIdx, setStringIdx] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const currentStr = TYPING_STRINGS[stringIdx];
@@ -60,29 +65,11 @@ export default function Hero() {
     return () => clearTimeout(timer);
   }, [typedText, isDeleting, stringIdx]);
 
-  const handleMouseMove = (e) => {
-    const { clientX, clientY } = e;
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    
-    const x = (clientX - width / 2) / width;
-    const y = (clientY - height / 2) / height;
-    
-    setMousePos({ x, y });
-  };
 
-  const handleContactClick = (e) => {
-    e.preventDefault();
-    const contactEl = document.getElementById("contact");
-    if (contactEl) {
-      contactEl.scrollIntoView({ behavior: "smooth" });
-    }
-  };
 
   return (
     <section 
       id="home"
-      onMouseMove={handleMouseMove}
       className="relative min-h-screen w-full flex items-center justify-center pt-24 px-6 md:px-12 xl:px-24 select-none overflow-hidden bg-transparent"
     >
       {/* Background soft flares */}
@@ -93,15 +80,6 @@ export default function Hero() {
         
         {/* Left Side Info Panel */}
         <div className="lg:col-span-7 flex flex-col space-y-6 text-left">
-          <motion.div
-            initial={{ opacity: 0, x: -35 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <span className="font-cyber text-xs md:text-sm tracking-[0.35em] uppercase text-lavender-vibrant font-extrabold block mb-3">
-              SYSTEM_INTERFACE_ACTIVE // PORTFOLIO
-            </span>
-          </motion.div>
 
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -109,7 +87,7 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl tracking-tight text-deep-text leading-[1.05]"
           >
-            Hi, I am <span className="bg-gradient-to-r from-lavender-vibrant via-lavender-medium to-deep-text bg-clip-text text-transparent inline-block font-black neon-text-vibrant">KEE</span>
+            Hi, I Am <span className="bg-gradient-to-r from-lavender-vibrant via-lavender-medium to-deep-text bg-clip-text text-transparent inline-block font-black neon-text-vibrant">Keerthika</span>
           </motion.h1>
 
           {/* Typing Container */}
@@ -131,65 +109,68 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
             className="text-deep-text/80 font-sans text-sm sm:text-base leading-relaxed max-w-xl font-medium"
           >
-            I architect elegant full-stack ecosystems and responsive virtual worlds. 
-            Blending high-performance Java algorithms with pixel-perfect frontend experiences, 
-            I synthesize sleek digital products that deliver premium utility and visuals.
+            Software developer passionate about creating end-to-end web applications, spanning from interactive user interfaces to reliable server architecture. I rely on a solid academic foundation in algorithms and data structures to turn complex problems into clean, maintainable code. Ready to bring adaptability and a strong work ethic to a team building real-world software solutions.
           </motion.p>
-
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-wrap items-center gap-4 pt-2"
-          >
-            <a
-              href="#contact"
-              onClick={handleContactClick}
-              className="flex items-center space-x-2 font-cyber text-xs tracking-widest uppercase bg-gradient-to-r from-lavender-light via-lavender-medium to-lavender-vibrant text-deep-text px-6 py-4 rounded font-extrabold hover:shadow-[0_0_20px_rgba(165,148,249,0.38)] transition-all group border border-lavender-medium/30 interactive-glow"
-            >
-              <span>Initialize Transmission</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </a>
-
-            <a
-              href="#"
-              onClick={(e) => e.preventDefault()}
-              className="flex items-center space-x-2 font-cyber text-xs tracking-widest uppercase border border-lavender-medium/40 bg-white/30 text-deep-text px-6 py-4 rounded font-extrabold hover:border-lavender-vibrant hover:text-lavender-vibrant hover:bg-white/60 transition-all interactive-glow"
-            >
-              <span>Download System Spec</span>
-              <Download className="w-4 h-4" />
-            </a>
-          </motion.div>
 
           {/* Social Links with Hover Glow */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.65 }}
-            className="flex items-center space-x-5 pt-6 border-t border-lavender-medium/20 w-fit"
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.55 }}
+            className="flex items-center space-x-4 pt-4 border-t border-lavender-medium/20 w-fit"
           >
             <a
-              href="https://github.com"
+              href="https://github.com/Keerthika082006"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-10 h-10 rounded-full border border-lavender-medium/30 bg-white/30 flex items-center justify-center text-deep-text hover:text-lavender-vibrant hover:border-lavender-vibrant hover:shadow-[0_0_12px_rgba(165,148,249,0.25)] transition-all interactive-glow"
+              className="relative group w-9 h-9 rounded-full border border-lavender-medium/30 bg-white/30 flex items-center justify-center text-deep-text hover:text-lavender-vibrant hover:border-lavender-vibrant hover:shadow-[0_0_12px_rgba(165,148,249,0.45)] transition-all interactive-glow"
             >
               <GithubIcon className="w-4 h-4" />
+              <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 scale-0 group-hover:scale-100 transition-all duration-200 bg-deep-text/90 backdrop-blur border border-lavender-medium/30 text-white font-cyber text-[7px] tracking-widest uppercase px-2 py-0.5 rounded shadow-lg pointer-events-none select-none z-30 whitespace-nowrap">
+                github
+              </span>
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://leetcode.com/u/keerthiduraiselvan/"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-10 h-10 rounded-full border border-lavender-medium/30 bg-white/30 flex items-center justify-center text-deep-text hover:text-lavender-vibrant hover:border-lavender-vibrant hover:shadow-[0_0_12px_rgba(165,148,249,0.25)] transition-all interactive-glow"
+              className="relative group w-9 h-9 rounded-full border border-lavender-medium/30 bg-white/30 flex items-center justify-center text-deep-text hover:text-lavender-vibrant hover:border-lavender-vibrant hover:shadow-[0_0_12px_rgba(165,148,249,0.45)] transition-all interactive-glow"
             >
-              <LinkedinIcon className="w-4 h-4" />
+              <LeetcodeIcon className="w-4 h-4" />
+              <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 scale-0 group-hover:scale-100 transition-all duration-200 bg-deep-text/90 backdrop-blur border border-lavender-medium/30 text-white font-cyber text-[7px] tracking-widest uppercase px-2 py-0.5 rounded shadow-lg pointer-events-none select-none z-30 whitespace-nowrap">
+                leetcode
+              </span>
             </a>
             <a
-              href="mailto:contact@example.com"
-              className="w-10 h-10 rounded-full border border-lavender-medium/30 bg-white/30 flex items-center justify-center text-deep-text hover:text-lavender-vibrant hover:border-lavender-vibrant hover:shadow-[0_0_12px_rgba(165,148,249,0.25)] transition-all interactive-glow"
+              href="https://www.linkedin.com/in/keerthika0812/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative group w-9 h-9 rounded-full border border-lavender-medium/30 bg-white/30 flex items-center justify-center text-deep-text hover:text-lavender-vibrant hover:border-lavender-vibrant hover:shadow-[0_0_12px_rgba(165,148,249,0.45)] transition-all interactive-glow"
             >
-              <Mail className="w-4 h-4" />
+              <LinkedinIcon className="w-4 h-4" />
+              <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 scale-0 group-hover:scale-100 transition-all duration-200 bg-deep-text/90 backdrop-blur border border-lavender-medium/30 text-white font-cyber text-[7px] tracking-widest uppercase px-2 py-0.5 rounded shadow-lg pointer-events-none select-none z-30 whitespace-nowrap">
+                linkedin
+              </span>
+            </a>
+          </motion.div>
+
+          {/* CTA Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.65, ease: [0.16, 1, 0.3, 1] }}
+            className="pt-2"
+          >
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                alert("Resume viewing is coming soon...");
+              }}
+              className="inline-flex items-center space-x-2 font-cyber text-xs tracking-widest uppercase bg-gradient-to-r from-lavender-light via-lavender-medium to-lavender-vibrant text-deep-text px-6 py-4 rounded font-extrabold hover:shadow-[0_0_20px_rgba(165,148,249,0.38)] transition-all group border border-lavender-medium/30 interactive-glow"
+            >
+              <span>View Resume</span>
+              <Eye className="w-4 h-4" />
             </a>
           </motion.div>
         </div>
@@ -197,72 +178,41 @@ export default function Hero() {
         {/* Right Side Parallax Illustration Panel */}
         <div className="lg:col-span-5 flex justify-center items-center relative py-6">
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-[420px] aspect-square flex items-center justify-center"
+            whileHover={{ scale: 1.04, y: -6 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="relative w-full max-w-[340px] aspect-[3/4] flex items-center justify-center cursor-pointer group"
           >
-            {/* Background parallax container */}
-            <div 
-              className="absolute inset-0 border border-lavender-medium/20 rounded-2xl bg-gradient-to-tr from-lavender-light/10 to-lavender-medium/10 transition-transform duration-200 ease-out"
-              style={{
-                transform: `translate3d(${-mousePos.x * 25}px, ${-mousePos.y * 25}px, 0) rotate(2deg)`,
-              }}
-            />
-            
-            {/* Spinning background geometric hud grid */}
-            <div 
-              className="absolute w-[105%] h-[105%] border-2 border-dashed border-lavender-vibrant/20 rounded-full animate-spin-slow opacity-60 transition-transform duration-200 ease-out"
-              style={{
-                transform: `translate3d(${mousePos.x * 12}px, ${mousePos.y * 12}px, 0)`,
-              }}
-            />
+            {/* Spinning background geometric HUD grid */}
+            <div className="absolute w-[105%] h-[105%] border border-dashed border-lavender-vibrant/25 rounded-full animate-spin-slow opacity-50" />
 
             {/* Glowing neon blobs specific to photo background */}
-            <div className="absolute top-[10%] right-[10%] w-48 h-48 rounded-full bg-lavender-medium/25 blur-3xl pointer-events-none" />
-            <div className="absolute bottom-[10%] left-[10%] w-40 h-40 rounded-full bg-lavender-light/35 blur-3xl pointer-events-none" />
+            <div className="absolute top-[10%] right-[10%] w-44 h-44 rounded-full bg-lavender-medium/20 blur-3xl pointer-events-none" />
+            <div className="absolute bottom-[10%] left-[10%] w-36 h-36 rounded-full bg-lavender-light/30 blur-3xl pointer-events-none" />
 
-            {/* Parallax Illustration Wrapper */}
-            <div
-              className="relative w-full h-full rounded-2xl overflow-hidden glass p-3 border-lavender-medium/40 shadow-xl transition-transform duration-200 ease-out"
-              style={{
-                transform: `translate3d(${mousePos.x * 35}px, ${mousePos.y * 35}px, 0) rotateX(${-mousePos.y * 18}deg) rotateY(${mousePos.x * 18}deg)`,
-                transformStyle: "preserve-3d",
-                perspective: "1000px"
-              }}
-            >
+            {/* Premium Flat Framed Illustration Wrapper for Proper View & Glow */}
+            <div className="relative w-full h-full rounded-2xl overflow-hidden border border-lavender-vibrant/40 shadow-[0_0_20px_rgba(165,148,249,0.3)] transition-all duration-500 group-hover:border-lavender-vibrant/80 group-hover:shadow-[0_0_35px_rgba(165,148,249,0.6)] bg-white/10">
               <img
                 src={developerPhoto}
-                alt="Software Developer Kee Profile"
-                className="w-full h-full object-cover rounded-xl border border-white/10 pointer-events-none"
-                style={{
-                  transform: "translateZ(30px) scale(1.05)",
-                }}
+                alt="Software Developer Keerthika Profile"
+                className="w-full h-full object-cover rounded-xl pointer-events-none"
               />
               
               {/* Internal overlay gradient glare */}
               <div 
-                className="absolute inset-0 pointer-events-none rounded-xl"
+                className="absolute inset-0 pointer-events-none rounded-xl z-20"
                 style={{
-                  background: `radial-gradient(circle at ${50 + mousePos.x * 60}% ${50 + mousePos.y * 60}%, rgba(165, 148, 249, 0.15) 0%, transparent 60%)`,
+                  background: `radial-gradient(circle at 50% 50%, rgba(165, 148, 249, 0.08) 0%, transparent 60%)`,
                   mixBlendMode: "overlay"
                 }}
               />
             </div>
 
             {/* Floating glowing particle dots around */}
-            <div 
-              className="absolute top-2 left-10 w-2.5 h-2.5 rounded-full bg-lavender-vibrant shadow-[0_0_8px_#A594F9] transition-transform duration-300 ease-out"
-              style={{ transform: `translate3d(${mousePos.x * 50}px, ${mousePos.y * 50}px, 0)` }}
-            />
-            <div 
-              className="absolute bottom-12 right-2 w-3.5 h-3.5 rounded-full bg-lavender-medium shadow-[0_0_10px_#CDC1FF] transition-transform duration-300 ease-out animate-pulse"
-              style={{ transform: `translate3d(${mousePos.x * -40}px, ${mousePos.y * -40}px, 0)` }}
-            />
-            <div 
-              className="absolute top-1/2 -right-6 w-2 h-2 rounded-full bg-lavender-light shadow-[0_0_8px_#E5D9F2] transition-transform duration-300 ease-out"
-              style={{ transform: `translate3d(${mousePos.x * 30}px, ${mousePos.y * -30}px, 0)` }}
-            />
+            <div className="absolute top-2 left-10 w-2.5 h-2.5 rounded-full bg-lavender-vibrant shadow-[0_0_8px_#A594F9]" />
+            <div className="absolute bottom-12 right-2 w-3.5 h-3.5 rounded-full bg-lavender-medium shadow-[0_0_10px_#CDC1FF] animate-pulse" />
+            <div className="absolute top-1/2 -right-6 w-2 h-2 rounded-full bg-lavender-light shadow-[0_0_8px_#E5D9F2]" />
           </motion.div>
         </div>
 

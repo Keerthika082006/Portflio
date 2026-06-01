@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { motion, useScroll, useSpring, useInView } from "framer-motion";
-import { Briefcase, Calendar, CheckSquare, ShieldCheck } from "lucide-react";
+import { Calendar, CheckSquare, ShieldCheck } from "lucide-react";
 
 const EXPERIENCES = [
   {

@@ -1,45 +1,55 @@
 import { useState, useEffect, useRef } from "react";
-import { Play, RotateCcw, Activity, HelpCircle } from "lucide-react";
-import { motion } from "framer-motion";
+import { Play, RotateCcw, HelpCircle } from "lucide-react";
 
 // Dimensions configured for different screens
 const GRID_ROWS = 13;
 const getCols = () => (window.innerWidth < 768 ? 15 : 29);
 
+const generateGrid = (cols, start, end) => {
+  const initialGrid = [];
+  for (let row = 0; row < GRID_ROWS; row++) {
+    const currentRow = [];
+    for (let col = 0; col < cols; col++) {
+      currentRow.push({
+        row,
+        col,
+        isStart: row === start.row && col === start.col,
+        isEnd: row === end.row && col === end.col,
+        distance: Infinity,
+        isVisited: false,
+        isWall: false,
+        previousNode: null,
+      });
+    }
+    initialGrid.push(currentRow);
+  }
+  return initialGrid;
+};
+
 export default function PathfindingVisualizer() {
   const [gridCols, setGridCols] = useState(getCols());
-  const [grid, setGrid] = useState([]);
+  const [startNode, setStartNode] = useState({ row: 3, col: 3 });
+  const [endNode, setEndNode] = useState(() => {
+    const cols = getCols();
+    return { row: 9, col: Math.min(25, cols - 2) };
+  });
+  const [grid, setGrid] = useState(() => 
+    generateGrid(getCols(), { row: 3, col: 3 }, { row: 9, col: Math.min(25, getCols() - 2) })
+  );
   const [mouseIsPressed, setMouseIsPressed] = useState(false);
   const [isVisualizing, setIsVisualizing] = useState(false);
   const [algorithm, setAlgorithm] = useState("dijkstra"); // dijkstra or bfs
-  const [startNode, setStartNode] = useState({ row: 3, col: 3 });
-  const [endNode, setEndNode] = useState({ row: 9, col: 25 });
   const [movingNode, setMovingNode] = useState(null); // 'start' or 'end' or null
 
   // Ref to track anim timeouts so we can cancel on reset
   const timeoutsRef = useRef([]);
   const gridContainerRef = useRef(null);
+  const isMounted = useRef(false);
 
-  // Re-calculate grid columns on resize
-  useEffect(() => {
-    const handleResize = () => {
-      const cols = getCols();
-      setGridCols(cols);
-      
-      // Keep end node within columns bound
-      const adjustedCol = Math.min(25, cols - 2);
-      setEndNode({ row: 9, col: adjustedCol });
-      resetGrid(cols);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  // Initialize grid on mount or col changes
-  useEffect(() => {
-    resetGrid(gridCols);
-  }, [gridCols]);
+  const clearTimeouts = () => {
+    timeoutsRef.current.forEach(clearTimeout);
+    timeoutsRef.current = [];
+  };
 
   const resetGrid = (cols = gridCols) => {
     clearTimeouts();
@@ -55,34 +65,66 @@ export default function PathfindingVisualizer() {
       }
     }
 
-    const initialGrid = [];
-    for (let row = 0; row < GRID_ROWS; row++) {
-      const currentRow = [];
-      for (let col = 0; col < cols; col++) {
-        currentRow.push({
-          row,
-          col,
-          isStart: row === startNode.row && col === startNode.col,
-          isEnd: row === endNode.row && col === endNode.col,
-          distance: Infinity,
-          isVisited: false,
-          isWall: false,
-          previousNode: null,
-        });
-      }
-      initialGrid.push(currentRow);
-    }
-    setGrid(initialGrid);
+    setGrid(generateGrid(cols, startNode, endNode));
   };
 
-  const clearTimeouts = () => {
-    timeoutsRef.current.forEach(clearTimeout);
-    timeoutsRef.current = [];
+  // Re-calculate grid columns on resize
+  useEffect(() => {
+    const handleResize = () => {
+      const cols = getCols();
+      setGridCols(cols);
+      
+      // Keep end node within columns bound
+      const adjustedCol = Math.min(25, cols - 2);
+      setEndNode({ row: 9, col: adjustedCol });
+      resetGrid(cols);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Initialize grid on col changes
+  useEffect(() => {
+    if (isMounted.current) {
+      resetGrid(gridCols);
+    } else {
+      isMounted.current = true;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gridCols]);
+
+  const clearPathfindingVisuals = () => {
+    clearTimeouts();
+    for (let r = 0; r < GRID_ROWS; r++) {
+      for (let c = 0; c < gridCols; c++) {
+        const node = document.getElementById(`node-${r}-${c}`);
+        if (node) {
+          const isStartNode = r === startNode.row && c === startNode.col;
+          const isEndNode = r === endNode.row && c === endNode.col;
+          const isWallNode = grid[r] && grid[r][c] && grid[r][c].isWall;
+          
+          if (isStartNode) {
+            node.className = "node-base node-start";
+          } else if (isEndNode) {
+            node.className = "node-base node-end";
+          } else if (isWallNode) {
+            node.className = "node-base node-wall";
+          } else {
+            node.className = "node-base";
+          }
+        }
+      }
+    }
   };
 
   const handleMouseDown = (row, col) => {
     if (isVisualizing) return;
     
+    // Clear any previous visual paths on new interaction
+    clearPathfindingVisuals();
+
     if (row === startNode.row && col === startNode.col) {
       setMovingNode("start");
     } else if (row === endNode.row && col === endNode.col) {
@@ -122,8 +164,8 @@ export default function PathfindingVisualizer() {
           const isNode = rIdx === row && cIdx === col;
           return {
             ...node,
-            isStart: type === "start" ? isNode : node.isStart && !(rIdx === startNode.row && cIdx === startNode.col),
-            isEnd: type === "end" ? isNode : node.isEnd && !(rIdx === endNode.row && cIdx === endNode.col),
+            isStart: type === "start" ? isNode : node.isStart,
+            isEnd: type === "end" ? isNode : node.isEnd,
             isWall: isNode ? false : node.isWall, // Clear walls if portal is dragged over them
           };
         })
@@ -179,13 +221,10 @@ export default function PathfindingVisualizer() {
     const start = algorithmGrid[startNode.row][startNode.col];
     const end = algorithmGrid[endNode.row][endNode.col];
     
-    let visitedNodesInOrder = [];
-    
-    if (algorithm === "dijkstra") {
-      visitedNodesInOrder = dijkstra(algorithmGrid, start, end);
-    } else {
-      visitedNodesInOrder = bfs(algorithmGrid, start, end);
-    }
+    const visitedNodesInOrder =
+      algorithm === "dijkstra"
+        ? dijkstra(algorithmGrid, start, end)
+        : bfs(algorithmGrid, start, end);
 
     const shortestPath = getNodesInShortestPathOrder(end);
     animateAlgorithm(visitedNodesInOrder, shortestPath);

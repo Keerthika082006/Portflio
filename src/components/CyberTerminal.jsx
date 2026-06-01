@@ -91,7 +91,11 @@ const CONTACT_RESPONSE = [
 ];
 
 export default function CyberTerminal() {
-  const [history, setHistory] = useState([]);
+  const [history, setHistory] = useState([
+    { text: "KEE.SYS INTERFACE CONSOLE ONLINE.", type: "system" },
+    { text: "TYPE 'help' TO DISCOVER AVAILABLE OPERATIONS.", type: "system" },
+    { text: "", type: "break" },
+  ]);
   const [inputVal, setInputVal] = useState("");
   const [matrixActive, setMatrixActive] = useState(false);
 
@@ -105,19 +109,10 @@ export default function CyberTerminal() {
   const columnsRef = useRef([]);
   const dropsRef = useRef([]);
 
-  // Initialize console logs on load
+  // Scroll to bottom on updates (of terminal container only, not the page)
   useEffect(() => {
-    setHistory([
-      { text: "KEE.SYS INTERFACE CONSOLE ONLINE.", type: "system" },
-      { text: "TYPE 'help' TO DISCOVER AVAILABLE OPERATIONS.", type: "system" },
-      { text: "", type: "break" },
-    ]);
-  }, []);
-
-  // Scroll to bottom on updates
-  useEffect(() => {
-    if (terminalEndRef.current) {
-      terminalEndRef.current.scrollIntoView({ behavior: "smooth" });
+    if (terminalBodyRef.current) {
+      terminalBodyRef.current.scrollTop = terminalBodyRef.current.scrollHeight;
     }
   }, [history]);
 

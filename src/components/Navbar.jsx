@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const NAV_LINKS = [
@@ -8,7 +8,7 @@ const NAV_LINKS = [
   { label: "Projects", href: "#projects" },
   { label: "Experience", href: "#experience" },
   { label: "Certifications", href: "#certifications" },
-  { label: "Console", href: "#console" },
+  { label: "Interests", href: "#interests" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -79,7 +79,7 @@ export default function Navbar() {
               <span className="text-sm font-black text-lavender-vibrant group-hover:text-deep-text">K</span>
               <div className="absolute inset-0 bg-lavender-vibrant/10 opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
-            <span>KEE<span className="text-lavender-vibrant group-hover:animate-ping">.</span>SYS</span>
+            <span>KEERTHIKA</span>
           </a>
 
           {/* Desktop Nav List */}
@@ -108,15 +108,7 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* Call To Action Button (Desktop Only) */}
-          <a
-            href="#contact"
-            onClick={(e) => handleLinkClick(e, "#contact")}
-            className="hidden lg:flex items-center space-x-1.5 font-cyber text-[10px] tracking-widest uppercase px-4 py-2 rounded border border-lavender-vibrant/40 text-lavender-vibrant bg-lavender-light/10 hover:bg-lavender-light/35 hover:border-lavender-vibrant hover:text-deep-text shadow-sm interactive-glow transition-all font-bold"
-          >
-            <span>Initiate Link</span>
-            <ArrowUpRight className="w-3.5 h-3.5" />
-          </a>
+
 
           {/* Mobile Menu Toggle button */}
           <button
@@ -160,18 +152,6 @@ export default function Navbar() {
                   </motion.a>
                 );
               })}
-              
-              <motion.a
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: NAV_LINKS.length * 0.05 }}
-                href="#contact"
-                onClick={(e) => handleLinkClick(e, "#contact")}
-                className="mt-8 mx-auto flex items-center space-x-1.5 font-cyber text-xs tracking-widest uppercase px-6 py-3 rounded border border-lavender-vibrant text-deep-text bg-lavender-light/35 shadow-md"
-              >
-                <span>Initiate Connection</span>
-                <ArrowUpRight className="w-4 h-4" />
-              </motion.a>
             </nav>
           </motion.div>
         )}

@@ -110,7 +110,7 @@ export default function Contact() {
                     </div>
                     <div>
                       <span className="font-cyber text-[8px] tracking-widest text-deep-text/60 font-extrabold uppercase block">EMAIL_NODE</span>
-                      <a href="mailto:contact@example.com" className="font-cyber text-xs sm:text-sm text-deep-text hover:text-lavender-vibrant transition-colors font-extrabold font-bold">contact@example.com</a>
+                      <a href="mailto:dkeerthika1808@gmail.com" className="font-cyber text-xs sm:text-sm text-deep-text hover:text-lavender-vibrant transition-colors font-extrabold font-bold">dkeerthika1808@gmail.com</a>
                     </div>
                   </div>
 
@@ -121,7 +121,7 @@ export default function Contact() {
               <div className="grid grid-cols-2 gap-4 pt-8 border-t border-lavender-medium/20 mt-8">
                 {/* LinkedIn Link */}
                 <a
-                  href="https://linkedin.com"
+                  href="https://www.linkedin.com/in/keerthika0812/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center space-x-2 font-cyber text-[9px] tracking-widest uppercase border border-lavender-medium/35 bg-white/40 hover:border-lavender-vibrant hover:bg-white/85 text-deep-text py-3.5 px-4 rounded-xl transition-all interactive-glow font-bold"
@@ -132,7 +132,7 @@ export default function Contact() {
 
                 {/* Github Link */}
                 <a
-                  href="https://github.com"
+                  href="https://github.com/Keerthika082006"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center space-x-2 font-cyber text-[9px] tracking-widest uppercase border border-lavender-medium/35 bg-white/40 hover:border-lavender-vibrant hover:bg-white/85 text-deep-text py-3.5 px-4 rounded-xl transition-all interactive-glow font-bold"
