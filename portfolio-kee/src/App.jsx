@@ -11,12 +11,11 @@ import Navbar from "./components/Navbar";
 
 // Content Modules
 import Hero from "./components/Hero";
-import About from "./components/About";
+import Skills from "./components/Skills";
 import Projects from "./components/Projects";
-import Experience from "./components/Experience";
+import Achievements from "./components/Achievements";
 import Certifications from "./components/Certifications";
 import Interests from "./components/Interests";
-import SysOpsDashboard from "./components/SysOpsDashboard";
 import Contact from "./components/Contact";
 
 
@@ -88,12 +87,11 @@ export default function App() {
             {/* Content Modules */}
             <main className="w-full flex flex-col">
               <Hero />
-              <About />
+              <Skills />
               <Projects />
-              <Experience />
+              <Achievements />
               <Certifications />
               <Interests />
-              <SysOpsDashboard />
               <Contact />
             </main>
 
